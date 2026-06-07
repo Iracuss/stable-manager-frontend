@@ -1,0 +1,14 @@
+export default function HorseTab({horseData}) {
+    return (
+        <div className="bg-slate-100 rounded-2xl h-20 flex hover:bg-slate-300 items-center pl-5 pr-5">
+
+            <div className="w-14 h-14 bg-gray-300 rounded-full shrink-0">
+                {/* <img /> */}
+            </div>
+
+            <p className="flex-1 font-sans text-center text-xl font-medium text-gray-800">
+                {horseData.name}
+            </p>
+        </div>
+    );
+}
