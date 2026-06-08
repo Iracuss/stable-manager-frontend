@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllHorses } from './api/horseService';
+import { getAllHorses, createHorse } from './api/horseService';
 import TopApp from './components/TopBar';
 import SideBar from './components/SideBar';
 import HorseContent from './components/HorseContent';
@@ -19,9 +19,24 @@ function App() {
       })
       .catch((err) => {
         // Handle error
+        console.error('Failed to get all horses:', err);
         setIsLoading(false);
       });
   }, []);
+
+  const handleSaveHorse = (newHorseData) => {
+      console.log("Data ready for Spring Boot backend:", newHorseData);
+      createHorse(newHorseData)
+        .then((savedHorse) => {
+          setHorses([...horses, savedHorse]);
+          setSelectedHorse(savedHorse);
+          setIsCreating(false);
+        })
+        .catch((err) => {
+          console.error("Failed to save horse to database:", err)
+          alert("Could not save horse. Make sure your backend server is running!");
+        })
+  };
 
   if (isLoading) return <div className="p-10 text-center">Loading your stable...</div>;
 
@@ -34,7 +49,11 @@ function App() {
           onSelectedHorse={setSelectedHorse} 
           onAddHorse={setIsCreating}
         />
-        {isCreating ? <AddHorse /> : <HorseContent horse={selectedHorse} />}
+        {isCreating ? 
+        <AddHorse 
+          onSave={handleSaveHorse} 
+          onCancel={() => setIsCreating(false)} /> : 
+        <HorseContent horse={selectedHorse} />}
         
       </div>
     </div>
