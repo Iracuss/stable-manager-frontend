@@ -10,3 +10,13 @@ export const getAllHorses = async () => {
         throw error;
     }
 };
+
+export const createHorse = async (horseData) => {
+    try {
+        const response = await apiClient.post('/horses', horseData);
+        return response.data;
+    } catch(error) {
+        console.error('Error creating horses:', error);
+        throw error;
+    }
+}

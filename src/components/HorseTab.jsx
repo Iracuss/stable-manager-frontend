@@ -1,6 +1,13 @@
-export default function HorseTab({horseData}) {
+export default function HorseTab({horseData, onTabClick, onAddHorse}) {
     return (
-        <div className="bg-slate-100 rounded-2xl h-20 flex hover:bg-slate-300 items-center pl-5 pr-5">
+        <div 
+            onClick={() => {
+                console.log("Clicked tab")
+                onTabClick(horseData)
+                onAddHorse(false)
+            }}
+            className="bg-slate-100 rounded-2xl h-20 flex hover:bg-slate-300 items-center pl-5 pr-5 active:bg-gray-300 transition-colors"
+        >
 
             <div className="w-14 h-14 bg-gray-300 rounded-full shrink-0">
                 {/* <img /> */}
