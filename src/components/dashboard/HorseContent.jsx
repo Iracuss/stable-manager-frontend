@@ -1,5 +1,6 @@
 import { useState } from "react";
 import HorseContentTitle from "./HorseContentTitle";
+import HorseOverview from "./HorseOverview";
 
 export default function HorseContent({horse}) {
 
@@ -15,7 +16,7 @@ export default function HorseContent({horse}) {
         );
     }
     return (
-        <div key={horse.id} className="flex flex-col pt-8 flex-1 items-center">
+        <div key={horse.id} className="flex flex-col pt-8 pb-8 flex-1 items-center h-full overflow-y-auto">
             <div className="w-full max-w-5xl flex flex-col gap-6 items-center">
                 <div className="w-full bg-gray-200 shadow-lg rounded-xl max-w-5xl p-8 h-fit">
                     <HorseContentTitle horse={horse}/>
@@ -42,9 +43,9 @@ export default function HorseContent({horse}) {
                     </button>
                 </div>
 
-                <div className="w-full bg-white shadow-sm rounded-xl border border-gray-200 p-8 min-h-[300px]">
-                    {activeTab === 'overview' && <p>Overview details coming soon...</p>}
-                    {activeTab === 'logs' && <p>Log charts coming soon...</p>}
+                <div className="w-full bg-white shadow-sm rounded-xl border border-gray-200 p-8 min-h-[700px]">
+                    {activeTab === 'overview' && <HorseOverview horse={horse} key={horse.id} />}
+                    {activeTab === 'logs' && <HorseLogs horseId={horse.id} />}
                     {activeTab === 'health' && <p>Health data coming soon...</p>}
                 </div>
             </div>
