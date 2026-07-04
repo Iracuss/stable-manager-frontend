@@ -45,7 +45,6 @@ export default function DashboardPage() {
 
     return (
         <div className="flex flex-col h-screen bg-gray-50 overflow-hidden">
-            <TopApp />
             <div className="flex flex-1 overflow-hidden">
                 <SideBar 
                 horses={horses} 

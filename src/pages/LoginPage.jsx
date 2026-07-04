@@ -1,16 +1,29 @@
 import { useState } from "react"
+import { login } from "../api/authService";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    function handleSubmit() {
+    const nav = useNavigate();
 
-    }
-    
-    function onCancel() {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError(null);
 
+        try {
+            const data = await login({username, password});
+
+            nav("/");
+        } catch(err) {
+            setError("Invalid credentials. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -28,17 +41,7 @@ export default function LoginPage() {
                 </div>
                 <div>
                     <input 
-                        type="text"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:border-black"
-                        placeholder="Email"
-                    />
-                </div>
-                <div>
-                    <input 
-                        type="text"
+                        type="password"
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -49,14 +52,6 @@ export default function LoginPage() {
 
                 <div className="flex gap-3 mt-2">
                     <button 
-                        type="button" 
-                        onClick={onCancel} // Closes the form without saving
-                        className="flex-1 h-11 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors"
-                    >
-                        Cancel
-                    </button>
-                    
-                    <button 
                         type="submit" // Triggers the form's onSubmit handler
                         className="flex-1 h-11 bg-black hover:bg-gray-800 text-white font-medium rounded-xl transition-colors"
                     >
@@ -64,6 +59,15 @@ export default function LoginPage() {
                     </button>
                 </div>
             </form>
+
+            <h2>
+                Not Registered?
+            </h2>
+            <Link
+                to='/register'
+            >
+                Register now
+            </Link>
         </div>
     )
 }
