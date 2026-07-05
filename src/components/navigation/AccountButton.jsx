@@ -4,7 +4,6 @@ import { useAuth } from "../AuthContext";
 export default function AccountButton() {
     const {user, logoutUser} = useAuth();
 
-
     return (
         <div className="">
             {!user ? 
@@ -15,6 +14,7 @@ export default function AccountButton() {
                     Login
                 </Link> :
                 <button onClick={logoutUser}
+                className="inline-block text-xl font-semibold text-white bg-black rounded-full py-2 px-6 hover:bg-gray-800 active:bg-gray-700 transition-colors"
                 >{user.username}</button>
             }
 

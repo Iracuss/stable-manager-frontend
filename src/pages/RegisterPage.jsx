@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { register } from "../api/authService";
+import horseBarn from "../assets/horse-barn.jpg"
 
 export default function RegisterPage() {
     const [username, setUsername] = useState("");
@@ -29,51 +30,65 @@ export default function RegisterPage() {
     }
 
     return (
-        <div>
+        <div className="flex flex-row w-full h-screen">
             
-            {error == null ? <></> : <h2>{error}</h2>}
+            <div className="flex flex-col flex-1 pb-25 pl-12 pr-12 items-center justify-center gap-8">
+                <h2 className="font-semibold text-3xl">Register</h2>
+                {error == null 
+                    ? <></> 
+                    : <h2 className="text-red-700 font-semibold text-xl">{error}</h2>
+                }
+       
+                <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full">
+                    <div>
+                        <input 
+                            type="text"
+                            required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:border-black"
+                            placeholder="Username"
+                        />
+                    </div>
+                    <div>
+                        <input 
+                            type="text"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:border-black"
+                            placeholder="Email"
+                        />
+                    </div>
+                    <div>
+                        <input 
+                            type="password"
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:border-black"
+                            placeholder="Password"
+                        />
+                    </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div>
-                    <input 
-                        type="text"
-                        required
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:border-black"
-                        placeholder="Username"
-                    />
-                </div>
-                <div>
-                    <input 
-                        type="text"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:border-black"
-                        placeholder="Email"
-                    />
-                </div>
-                <div>
-                    <input 
-                        type="password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:border-black"
-                        placeholder="Password"
-                    />
-                </div>
+                    <div className="flex gap-3 mt-2">
+                        <button 
+                            type="submit"
+                            className="flex-1 h-11 bg-black hover:bg-gray-800 text-white font-medium rounded-xl transition-colors"
+                        >
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-                <div className="flex gap-3 mt-2">
-                    <button 
-                        type="submit" // Triggers the form's onSubmit handler
-                        className="flex-1 h-11 bg-black hover:bg-gray-800 text-white font-medium rounded-xl transition-colors"
-                    >
-                        Register
-                    </button>
-                </div>
-            </form>
+            <div className="w-1/2 h-full overflow-hidden">
+                <img 
+                    src={horseBarn}
+                    alt="Horse in a barn"
+                    className="w-full h-full object-cover" 
+                />
+            </div>
         </div>
     )
 }
