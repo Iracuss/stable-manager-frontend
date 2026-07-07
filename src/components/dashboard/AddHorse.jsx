@@ -29,6 +29,28 @@ export default function AddHorse({onSave, onCancel}) {
         onSave(horseData);
     }
 
+    const handleMdBredChange = (e) => {
+        const isChecked = e.target.checked;
+        setIsMdBred(isChecked);
+
+        if(isChecked) {
+            setFoalingState("Maryland");
+        } else {
+            setFoalingState("");
+        }
+    }
+
+    const handleStateChange = (e) => {
+        const typedState = e.target.value;
+        setFoalingState(typedState);
+
+        if(typedState.toUpperCase() === "MD" || typedState.toUpperCase() === "MARYLAND") {
+            setIsMdBred(true);
+        } else {
+            setIsMdBred(false);
+        }
+    }
+
     return (
         <div className="flex-1 p-6 bg-gray-50 flex items-center justify-center">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 w-full max-w-5xl max-h-[80vh] overflow-y-auto">
@@ -93,7 +115,7 @@ export default function AddHorse({onSave, onCancel}) {
                             type="text"
                             required
                             value={foalingState}
-                            onChange={(e) => setFoalingState(e.target.value)}
+                            onChange={handleStateChange}
                             className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:border-black"
                             placeholder="e.g. MD, KY"
                         />
@@ -104,7 +126,7 @@ export default function AddHorse({onSave, onCancel}) {
                             type="checkbox" 
                             id="isMdBred"
                             checked={isMdBred} 
-                            onChange={(e) => setIsMdBred(e.target.checked)} // Grabs true/false from checked state
+                            onChange={handleMdBredChange} // Grabs true/false from checked state
                             className="w-5 h-5 accent-black cursor-pointer"
                         />
                         <label htmlFor="isMdBred" className="text-sm font-medium text-gray-700 cursor-pointer select-none">

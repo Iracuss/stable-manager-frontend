@@ -53,7 +53,7 @@ export default function HorseContent({horse, onDeleteSuccess}) {
                     </button>
                 </div>
 
-                <div className="w-full bg-white shadow-sm rounded-xl border border-gray-200 p-8 min-h-[700px]">
+                <div className="w-full bg-white shadow-sm rounded-xl border border-gray-200 p-8">
                     {activeTab === 'overview' && <HorseOverview horse={horse} key={horse.id} />}
                 </div>
             </div>
