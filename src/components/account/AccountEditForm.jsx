@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { updateAccount } from "../../api/userService";
 
 export default function AccountEditForm({setIsEditing}) {
-    const {user, setUser} = useAuth();
+    const {user, setUser, logoutUser} = useAuth();
     const [username, setUsername] = useState(user.username);
     const [email, setEmail] = useState(user.email);
 
@@ -17,10 +17,15 @@ export default function AccountEditForm({setIsEditing}) {
             username: username,
             email: email
         }
-        setUser(updatedUser);
-        await updateAccount(updatedUser);
-        setIsEditing(false);
-        nav("/me");
+        try {
+            await updateAccount(updatedUser);
+            setUser({...user, username: username, email: email});
+            setIsEditing(false);
+            nav("/auth");
+            logoutUser();
+        } catch(error) {
+            setIsEditing(false);
+        }
     }
 
     return (

@@ -1,8 +1,6 @@
 import AccountHorseCard from "./AccountHorseCard";
 
 export default function AccountHorseContainer({horses}) {
-
-
     return (
         <div className="flex flex-col w-full h-fit px-12 pb-6">
             {horses.map((horse) => (

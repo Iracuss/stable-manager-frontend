@@ -4,6 +4,7 @@ import { getAllHorses } from "../api/horseService";
 import { useEffect, useState } from "react";
 import AccountHorseContainer from "../components/account/AccountHorseContainer";
 import AccountEditForm from "../components/account/AccountEditForm";
+import AccountDeleteButtons from "../components/account/AccountDeleteButtons";
 
 export default function AccountPage() {
     const {user} = useAuth();
@@ -12,6 +13,7 @@ export default function AccountPage() {
     const [isLoading, setIsLoading] = useState(true);
 
     const [isEditing, setIsEditing] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         if(!user) {
@@ -31,6 +33,14 @@ export default function AccountPage() {
             setIsLoading(false);
         });
     }, [user]);
+
+    if(!user) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <h2 className="text-xl font-semibold">Please log in to view this page.</h2>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col justify-start items-center h-screen p-4 gap-8">
@@ -57,7 +67,7 @@ export default function AccountPage() {
                         Edit Profile
                     </button>
                     <button 
-                        onClick={() => console.log('clicked delete user account')}
+                        onClick={() => setIsDeleting(!isDeleting)}
                         className="bg-black text-white py-2 px-4 text-2xl rounded-2xl font-semibold hover:bg-red-500 hover:text-black active:bg-red-400 transition-colors"
                     >
                         Delete Profile
@@ -69,9 +79,21 @@ export default function AccountPage() {
                 ? <></> 
                 : <AccountEditForm setIsEditing={setIsEditing} />
             }
+            
+            {!isDeleting 
+                ? <></> 
+                : <AccountDeleteButtons setIsDeleting={setIsDeleting} />
+            }
 
             <h1 className="text-4xl font-bold border-b-3">Horses</h1>
-            <AccountHorseContainer horses={horses} />
+            {isLoading 
+                ? <main className="flex-1 flex pt-24 items-start justify-center">
+                    <p className="text-xl text-gray-400 font-medium">
+                        Loading horses...
+                    </p>
+                </main>
+                : <AccountHorseContainer horses={horses} />
+            }
 
 
         </div>
