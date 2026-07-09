@@ -8,6 +8,7 @@ export default function DropAccountButton({setIsOpen}) {
     const nav = useNavigate();
 
     const viewAccount = () => {
+        setIsOpen(false);
         nav("/me");
         console.log("clicked view account");
     }

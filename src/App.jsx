@@ -9,7 +9,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className='flex flex-col h-screen overflow-hidden'>
+      <div className='flex flex-col h-screen'>
         <TopBar />
         <Routes>
           <Route path='/' element={<DashboardPage />} />

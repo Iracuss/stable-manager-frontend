@@ -3,7 +3,7 @@ import { apiClient } from "./client";
 export const getMyAccount = async () => {
     try {
         const token = localStorage.getItem('jwt_token');
-        
+
         // Check if we have a token first but for test this is fine
         const response = await apiClient.get('users/me', {
             headers: {Authorization: `Bearer ${token}`}
@@ -15,6 +15,16 @@ export const getMyAccount = async () => {
         return user
     } catch(err) {
         console.error('Error getting users account:', err);
+        throw error;
+    }
+}
+
+export const updateAccount = async (updatedUser) => {
+    try {
+        const response = await apiClient.put('/users/me', updatedUser);
+        return response.data;
+    } catch(error) {
+        console.error('Error updating user:', error);
         throw error;
     }
 }

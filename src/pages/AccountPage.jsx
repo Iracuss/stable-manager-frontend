@@ -1,8 +1,37 @@
 import { useAuth } from "../components/AuthContext";
 import userIcon from "../assets/user-icon.png";
+import { getAllHorses } from "../api/horseService";
+import { useEffect, useState } from "react";
+import AccountHorseContainer from "../components/account/AccountHorseContainer";
+import AccountEditForm from "../components/account/AccountEditForm";
 
 export default function AccountPage() {
     const {user} = useAuth();
+
+    const [horses, setHorses] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        if(!user) {
+            setHorses([]);
+            setIsLoading(false);
+            return;
+        }
+        setIsLoading(true);
+        getAllHorses()
+        .then((data) => {
+            setHorses(data);
+            setIsLoading(false);
+        })
+        .catch((err) => {
+            // Handle error
+            console.error('Failed to get all horses:', err);
+            setIsLoading(false);
+        });
+    }, [user]);
+
     return (
         <div className="flex flex-col justify-start items-center h-screen p-4 gap-8">
 
@@ -22,7 +51,7 @@ export default function AccountPage() {
                 </div>
                 <div className="flex flex-col justify-center gap-5 pr-4">
                     <button 
-                        onClick={() => console.log('clicked edit user account')}
+                        onClick={() => setIsEditing(!isEditing)}
                         className="bg-black text-white py-2 px-4 text-2xl rounded-2xl font-semibold hover:bg-blue-400 hover:text-black active:bg-blue-300 transition-colors"
                     >
                         Edit Profile
@@ -36,7 +65,14 @@ export default function AccountPage() {
                 </div>
             </div>
             
-            <h1>Working on account page...</h1>
+            {!isEditing 
+                ? <></> 
+                : <AccountEditForm setIsEditing={setIsEditing} />
+            }
+
+            <h1 className="text-4xl font-bold border-b-3">Horses</h1>
+            <AccountHorseContainer horses={horses} />
+
 
         </div>
 
