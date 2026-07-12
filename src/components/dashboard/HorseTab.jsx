@@ -13,7 +13,7 @@ export default function HorseTab({horseData, onTabClick, onAddHorse}) {
                 onTabClick(horseData)
                 onAddHorse(false)
             }}
-            className={`bg-slate-100 rounded-2xl h-20 flex hover:bg-slate-300 items-center pl-5 pr-5 active:bg-gray-300 transition-colors 
+            className={`bg-slate-100 rounded-2xl h-20 flex hover:bg-slate-300 items-center pl-5 pr-5 gap-2 active:bg-gray-300 transition-colors 
                 ${cogginsWarning ? 'border-2 border-orange-500' : ''} 
                 ${farrierWarning ? 'border-2 border-orange-500' : ''}
                 ${farrierWarning && cogginsWarning ? 'border-2 border-red-700' : ''}`}
@@ -27,8 +27,11 @@ export default function HorseTab({horseData, onTabClick, onAddHorse}) {
                 />
             </div>
 
-            <div className={`flex flex-col justify-center items-center w-full ${cogginsWarning && farrierWarning ? '-space-y-1' : ''}`}>
-                <p className="flex-1 font-sans text-center text-xl font-medium text-gray-800">
+            <div className={`flex flex-col min-w-0 justify-center pl-2 items-center w-full ${cogginsWarning && farrierWarning ? '-space-y-1' : ''}`}>
+                <p
+                    className="flex-1 font-sans w-full truncate text-center text-xl font-medium text-gray-800"
+                    title={horseData.name}
+                >
                     {horseData.name}
                 </p>
 
