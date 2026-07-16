@@ -13,3 +13,18 @@ apiClient.interceptors.request.use((config) => {
 
     return config;
 })
+
+apiClient.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        if(error.response && error.response.status == 401) {
+            console.error("Token expired. Logging out...");
+            localStorage.removeItem("jwt_token");
+            localStorage.removeItem("user_info");
+            window.location.href = "/auth";
+        }
+        return Promise.reject(error);
+    }
+)
