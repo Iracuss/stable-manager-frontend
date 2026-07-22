@@ -5,6 +5,7 @@ import TopBar from './components/navigation/TopBar';
 import RegisterPage from './pages/RegisterPage';
 import AccountPage from './pages/AccountPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import LandingPage from './pages/LandingPage';
 
 function App() {
 
@@ -13,7 +14,8 @@ function App() {
       <div className='flex flex-col h-screen'>
         <TopBar />
         <Routes>
-          <Route path='/' element={<DashboardPage />} />
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/dashboard' element={<DashboardPage />} />
           <Route path='/auth' element={<LoginPage />} />
           <Route path='/reset-password' element={<ResetPasswordPage />} />
           <Route path='/register' element={<RegisterPage />} />
