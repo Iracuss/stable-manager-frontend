@@ -5,9 +5,10 @@ import { deleteHorse } from "../../api/horseService";
 import HorseEdit from "./HorseEdit";
 import HorseDates from "./HorseDates";
 import { isOverdue } from "../utils/dateHelper";
+import { useParams } from "react-router-dom";
 
 export default function HorseContent({horse, onDeleteSuccess, onEdit}) {
-
+    const {stableId} = useParams();
     const [activeTab, setActiveTab] = useState('overview');
 
     if(!horse) {
@@ -28,7 +29,7 @@ export default function HorseContent({horse, onDeleteSuccess, onEdit}) {
             console.log('clicked delete');
             // Need to make a thing to check if we are sure but later
 
-            await deleteHorse(horseId);
+            await deleteHorse(stableId, horseId);
             onDeleteSuccess(horseId);
             alert("Deleted horse")
         } catch(error) {

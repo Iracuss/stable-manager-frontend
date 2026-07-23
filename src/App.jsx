@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage';
 import AccountPage from './pages/AccountPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import LandingPage from './pages/LandingPage';
+import StablesPage from './pages/StablesPage';
 
 function App() {
 
@@ -15,7 +16,8 @@ function App() {
         <TopBar />
         <Routes>
           <Route path='/' element={<LandingPage />} />
-          <Route path='/dashboard' element={<DashboardPage />} />
+          <Route path='/stables' element={<StablesPage />} />
+          <Route path='/dashboard/:stableId' element={<DashboardPage />} />
           <Route path='/auth' element={<LoginPage />} />
           <Route path='/reset-password' element={<ResetPasswordPage />} />
           <Route path='/register' element={<RegisterPage />} />

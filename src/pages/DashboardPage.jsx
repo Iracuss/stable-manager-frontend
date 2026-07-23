@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import { getAllHorses, createHorse } from '../api/horseService';
+import { getAllHorsesInStable, createHorse } from '../api/horseService';
 import SideBar from '../components/dashboard/SideBar';
 import HorseContent from '../components/dashboard/HorseContent';
 import AddHorse from '../components/dashboard/AddHorse';
 import { useAuth } from '../components/auth/UseAuth';
+import { useParams } from 'react-router-dom';
 
 export default function DashboardPage() {
     const {user} = useAuth();
 
+    const {stableId} = useParams();
     const [horses, setHorses] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedHorse, setSelectedHorse] = useState(null);
@@ -35,7 +37,7 @@ export default function DashboardPage() {
             return;
         }
         setIsLoading(true);
-        getAllHorses()
+        getAllHorsesInStable(stableId)
         .then((data) => {
             setHorses(data);
             setIsLoading(false);
@@ -48,7 +50,7 @@ export default function DashboardPage() {
     }, [user]);
 
     const handleSaveHorse = (newHorseData) => {
-        createHorse(newHorseData)
+        createHorse(stableId, newHorseData)
             .then((savedHorse) => {
                 setHorses([...horses, savedHorse]);
                 setSelectedHorse(savedHorse);
